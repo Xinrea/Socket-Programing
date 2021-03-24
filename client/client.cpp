@@ -29,13 +29,17 @@ int main() {
     }
   }
   string msg = "hello from client";
-  while (true) {
+  int send_count = 3;
+  while (send_count--) {
     for (int i = 0; i < CONNECT_NUM; i++) {
       string msg_c = msg + to_string(i);
+      //cout << "MSG SEND" << endl << msg_c << endl;
       send(sockfd[i], msg_c.c_str(), msg_c.length(), 0);
       sleep(1);
     }
   }
-  
+  for (int i = 0; i < CONNECT_NUM; i++) {
+    close(sockfd[i]);
+  }
   return 0;
 }
