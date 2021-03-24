@@ -20,6 +20,10 @@ int main() {
         cout << "Socket Creation Failed" << endl;
         return -1;
     }
+    int reuse = 1;
+    if (setsockopt(serv_sock, SOL_SOCKET, SO_REUSEADDR, (const void *)&reuse, sizeof(reuse)) == -1) {
+        perror("Set SO_REUSEADDR Failed");
+    }
     sockaddr_in server_addr;
     server_addr.sin_addr.s_addr = INADDR_ANY;
     server_addr.sin_family = AF_INET;
